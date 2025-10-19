@@ -27,7 +27,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.4.0"
+      "version": "12.2.0"
     },
     {
       "type": "datasource",
@@ -61,6 +61,152 @@
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
         "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "enable": false,
+        "hide": false,
+        "iconColor": "light-green",
+        "mappings": {
+          "text": {
+            "source": "field",
+            "value": "text"
+          },
+          "time": {
+            "source": "field",
+            "value": "title"
+          },
+          "timeEnd": {
+            "source": "field",
+            "value": "timeEnd"
+          }
+        },
+        "name": "Safe Time Periods",
+        "target": {
+          "fromAnnotations": true,
+          "query": "SELECT text,timeEnd FROM events WHERE \"name\" = 'safety_safe_period'",
+          "rawQuery": true,
+          "refId": "Anno",
+          "tagsColumn": "",
+          "textColumn": "text",
+          "textEditor": true,
+          "timeEndColumn": "timeEnd"
+        }
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "enable": false,
+        "hide": false,
+        "iconColor": "red",
+        "mappings": {
+          "text": {
+            "source": "field",
+            "value": "text"
+          },
+          "time": {
+            "source": "field",
+            "value": "title"
+          },
+          "timeEnd": {
+            "source": "field",
+            "value": "timeEnd"
+          }
+        },
+        "name": "Unsafe Time Periods",
+        "target": {
+          "fromAnnotations": true,
+          "query": "SELECT text,timeEnd FROM events WHERE \"name\" = 'safety_unsafe_period'",
+          "rawQuery": true,
+          "refId": "Anno",
+          "tagsColumn": "",
+          "textColumn": "text",
+          "textEditor": true,
+          "timeEndColumn": "timeEnd"
+        }
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "enable": false,
+        "hide": false,
+        "iconColor": "light-purple",
+        "name": "Autofocus Operations",
+        "target": {
+          "fromAnnotations": true,
+          "query": "SELECT text,title FROM events WHERE \"name\" = 'autofocus'",
+          "rawQuery": true,
+          "refId": "Anno",
+          "textColumn": "text",
+          "textEditor": true
+        }
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "enable": false,
+        "hide": false,
+        "iconColor": "super-light-yellow",
+        "name": "Dithers",
+        "target": {
+          "fromAnnotations": true,
+          "query": "SELECT text FROM events WHERE $timeFilter AND \"name\" = 'guider_dither'",
+          "rawQuery": true,
+          "refId": "Anno",
+          "tagsColumn": "",
+          "textColumn": "text",
+          "textEditor": true,
+          "timeEndColumn": ""
+        }
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "enable": false,
+        "hide": false,
+        "iconColor": "dark-green",
+        "name": "Image Created",
+        "target": {
+          "fromAnnotations": true,
+          "query": "SELECT text,title FROM events WHERE \"name\" = 'image'",
+          "rawQuery": true,
+          "refId": "Anno",
+          "tagsColumn": "",
+          "textColumn": "text",
+          "textEditor": true,
+          "timeEndColumn": ""
+        }
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "enable": false,
+        "hide": false,
+        "iconColor": "light-blue",
+        "name": "Filter Changes",
+        "target": {
+          "fromAnnotations": true,
+          "query": "SELECT text FROM events WHERE $timeFilter AND \"name\" = 'filter_change'",
+          "rawQuery": true,
+          "refId": "Anno",
+          "tagsColumn": "",
+          "textColumn": "text",
+          "textEditor": true,
+          "timeEndColumn": ""
+        }
       }
     ]
   },
@@ -68,7 +214,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
-  "id": null,
   "links": [],
   "panels": [
     {
@@ -88,7 +233,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -133,7 +278,7 @@
         "textMode": "value",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "groupBy": [
@@ -206,7 +351,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -251,7 +396,7 @@
         "textMode": "value",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "groupBy": [
@@ -323,7 +468,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -363,7 +508,7 @@
         "textMode": "value",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "groupBy": [
@@ -425,7 +570,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -470,7 +615,7 @@
         "textMode": "value",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "groupBy": [
@@ -545,7 +690,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "yellow",
@@ -573,7 +718,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "yellow",
@@ -610,7 +755,7 @@
         "textMode": "value",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "groupBy": [
@@ -684,7 +829,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -733,7 +878,7 @@
         "textMode": "value",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "groupBy": [
@@ -807,7 +952,7 @@
             "steps": [
               {
                 "color": "blue",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -839,7 +984,7 @@
         "textMode": "value_and_name",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "alias": "Altitude",
@@ -945,7 +1090,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -973,7 +1118,7 @@
                   "steps": [
                     {
                       "color": "green",
-                      "value": null
+                      "value": 0
                     },
                     {
                       "color": "semi-dark-orange",
@@ -1014,7 +1159,7 @@
         "textMode": "value_and_name",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "alias": "Sensor Temp.",
@@ -1120,7 +1265,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -1175,7 +1320,7 @@
         "textMode": "value_and_name",
         "wideLayout": false
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "alias": "Extension Temp.",
@@ -1301,6 +1446,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1316,7 +1462,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "text",
@@ -1359,11 +1505,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "alias": "Sun Altitude",
@@ -1486,6 +1633,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": 3600000,
             "stacking": {
               "group": "A",
@@ -1502,7 +1650,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -1525,11 +1673,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "alias": "Declination",
@@ -1700,6 +1849,7 @@
               "type": "log"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": 1200000,
             "stacking": {
               "group": "A",
@@ -1717,7 +1867,7 @@
             "steps": [
               {
                 "color": "dark-green",
-                "value": null
+                "value": 0
               }
             ]
           },
@@ -1772,11 +1922,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "multi",
           "sort": "asc"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "alias": "[[tag_target_name]]: Mean",
@@ -1900,6 +2051,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1915,7 +2067,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1946,11 +2098,12 @@
           "showLegend": false
         },
         "tooltip": {
+          "hideZeros": false,
           "mode": "single",
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0",
+      "pluginVersion": "12.2.0",
       "targets": [
         {
           "alias": "Wind Speed",
@@ -3685,7 +3838,7 @@
     }
   ],
   "refresh": "30s",
-  "schemaVersion": 40,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": []
@@ -3709,6 +3862,7 @@
   "timezone": "America/Denver",
   "title": "Example NINA Dashboard",
   "uid": "aealkagsv59tsf",
-  "version": 7,
-  "weekStart": ""
+  "version": 16,
+  "weekStart": "",
+  "id": null
 }
