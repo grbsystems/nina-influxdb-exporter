@@ -58,7 +58,7 @@ namespace DaleGhent.NINA.InfluxDbExporter.Stream {
             var points = new List<PointData>();
 
             points.Add(PointData.Measurement("fwheel_filter")
-                .Field("value", FilterWheelInfo.SelectedFilter.Name)
+                .Field("value", FilterWheelInfo.SelectedFilter?.Name ?? "UNKNOWN")
                 .Timestamp(timeStamp, WritePrecision.S));
 
             // Send the points
