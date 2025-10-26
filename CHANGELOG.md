@@ -1,6 +1,10 @@
 ﻿# InfluxDB Exporter
 [Documentation](https://daleghent.com/influxdb-exporter)
 
+## 1.1.0.900 - 2025-10-25
+* Added guard for null filter names
+* Corrected the metadata properties used for image-specific guide RMS stats
+
 ## 1.0.0.900 - 2025-10-16
 * Transition InfluxDB Exporter from beta to GA.
 * Added event metrics for hardware, imaging, and autofocus events. A metric with Grafana-style Annotation tags and fields are emitted when the following occurs:
