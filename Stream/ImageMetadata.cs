@@ -112,14 +112,24 @@ namespace DaleGhent.NINA.InfluxDbExporter.Stream {
                         .Timestamp(imgTime, WritePrecision.Ns));
                 }
 
-                double rmsAvgRA = 0d;
-                double rmsAvgDec = 0d;
-                double rmsAvgTotal = 0d;
+                var rmsAvgRA = 0d;
+                var rmsAvgDec = 0d;
+                var rmsAvgTotal = 0d;
+
+                var rmsPeakRA = 0d;
+                var rmsPeakDec = 0d;
+                var rmsPeakTotal = 0d;
 
                 if (!double.IsNaN(args.MetaData.Image.RecordedRMS?.RA ?? 0d) && !double.IsNaN(args.MetaData.Image.RecordedRMS?.Dec ?? 0d)) {
                     rmsAvgRA = args.MetaData.Image.RecordedRMS.RA;
                     rmsAvgDec = args.MetaData.Image.RecordedRMS.Dec;
-                    rmsAvgTotal = Math.Sqrt(Math.Pow(rmsAvgRA, 2) + Math.Pow(rmsAvgDec, 2));
+                    rmsAvgTotal = args.MetaData.Image.RecordedRMS.Total;
+                }
+
+                if (!double.IsNaN(args.MetaData.Image.RecordedRMS?.PeakRA ?? 0d) && !double.IsNaN(args.MetaData.Image.RecordedRMS?.PeakDec ?? 0d)) {
+                    rmsPeakRA = args.MetaData.Image.RecordedRMS.PeakRA;
+                    rmsPeakDec = args.MetaData.Image.RecordedRMS.PeakDec;
+                    rmsPeakTotal = Math.Sqrt(Math.Pow(rmsPeakRA, 2) + Math.Pow(rmsPeakDec, 2));
                 }
 
                 points.Add(PointData.Measurement("image_rms_avg_ra_arcsec")
@@ -134,19 +144,16 @@ namespace DaleGhent.NINA.InfluxDbExporter.Stream {
                     .Field("value", rmsAvgTotal)
                     .Timestamp(imgTime, WritePrecision.Ns));
 
-                valueDouble = double.IsNaN(args.MetaData.Image.RecordedRMS?.PeakRA ?? 0d) ? 0d : args.MetaData.Image.RecordedRMS.PeakRA;
                 points.Add(PointData.Measurement("image_rms_peak_ra_arcsec")
-                    .Field("value", valueDouble)
+                    .Field("value", rmsPeakRA)
                     .Timestamp(imgTime, WritePrecision.Ns));
 
-                valueDouble = double.IsNaN(args.MetaData.Image.RecordedRMS?.PeakDec ?? 0d) ? 0d : args.MetaData.Image.RecordedRMS.PeakDec;
                 points.Add(PointData.Measurement("image_rms_peak_dec_arcsec")
-                    .Field("value", valueDouble)
+                    .Field("value", rmsPeakDec)
                     .Timestamp(imgTime, WritePrecision.Ns));
 
-                valueDouble = double.IsNaN(args.MetaData.Image.RecordedRMS?.Total ?? 0d) ? 0d : args.MetaData.Image.RecordedRMS.Total;
                 points.Add(PointData.Measurement("image_rms_peak_arcsec")
-                    .Field("value", valueDouble)
+                    .Field("value", rmsPeakTotal)
                     .Timestamp(imgTime, WritePrecision.Ns));
 
                 // Event
