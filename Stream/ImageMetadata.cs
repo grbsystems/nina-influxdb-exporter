@@ -157,26 +157,31 @@ namespace DaleGhent.NINA.InfluxDbExporter.Stream {
                     .Timestamp(imgTime, WritePrecision.Ns));
 
                 // Event
+                var pointData = PointData
+                    .Measurement(options.MeasurementName)
+                    .Tag("name", "image")
+                    .Field("title", "Image taken");
+
                 var text = $"Image; Type: {args.MetaData.Image.ImageType}";
                 if (!string.IsNullOrEmpty(args.MetaData.Target.Name)) {
                     text += $", Target: {args.MetaData.Target.Name}";
                 }
                 if (!string.IsNullOrEmpty(args.Filter)) {
                     text += $", Filter: {args.Filter}";
+                    pointData = pointData.Field("filter", args.Filter);
                 }
 
                 text += $", Exp: {args.MetaData.Image.ExposureTime:F2}s";
+                pointData = pointData.Field("exposure", args.MetaData.Image.ExposureTime);
 
                 if (args.Statistics != null) {
                     text += $", Mean: {args.Statistics.Mean:F2}";
+                    pointData = pointData.Field("mean", args.Statistics.Mean);
                 }
 
-                points.Add(PointData
-                    .Measurement(options.MeasurementName)
-                    .Tag("name", "image")
-                    .Field("title", "Image taken")
-                    .Field("text", text)
-                    .Timestamp(imgTime, WritePrecision.Ms));
+                pointData = pointData.Field("text", text);
+
+                points.Add(pointData);
 
                 // Send the points
                 var fullOptions = new InfluxDBClientOptions(options.InfluxDbUrl) {

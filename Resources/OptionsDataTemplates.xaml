@@ -13,7 +13,7 @@
     xmlns:util="clr-namespace:DaleGhent.NINA.InfluxDbExporter.Utilities"
     mc:Ignorable="d">
 
-    <DataTemplate x:Key="InfluxDB_Exporter_Options">
+    <DataTemplate x:Key="InfluxDBv3_Exporter_Options">
         <StackPanel Orientation="Vertical">
             <TabControl>
                 <TabItem Header="Server Settings">

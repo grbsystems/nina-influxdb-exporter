@@ -2,25 +2,25 @@
 using System.Runtime.InteropServices;
 
 // [MANDATORY] The following GUID is used as a unique identifier of the plugin
-[assembly: Guid("3f820a89-a858-47f2-a56d-4e2b296f2364")]
+[assembly: Guid("cf5eab46-7d65-4fbd-875d-1fd1494e300c")]
 
 // [MANDATORY] The assembly versioning
 //Should be incremented for each new release build of a plugin
-[assembly: AssemblyVersion("1.1.0.900")]
-[assembly: AssemblyFileVersion("1.1.0.900")]
+[assembly: AssemblyVersion("1.3.0.100")]
+[assembly: AssemblyFileVersion("1.3.0.100")]
 
 // [MANDATORY] The name of your plugin
-[assembly: AssemblyTitle("InfluxDB Exporter")]
+[assembly: AssemblyTitle("InfluxDBv3 Exporter")]
 // [MANDATORY] A short description of your plugin
-[assembly: AssemblyDescription("Exports metrics to an InfluxDB 2.x or InfluxDB Cloud 2 instance")]
+[assembly: AssemblyDescription("Exports metrics to an InfluxDB 3 InfluxDB Cloud instance")]
 
 // The following attributes are not required for the plugin per se, but are required by the official manifest meta data
 
 // Your name
-[assembly: AssemblyCompany("Dale Ghent")]
+[assembly: AssemblyCompany("Jeremy Burton")]
 // The product name that this plugin is part of
-[assembly: AssemblyProduct("InfluxDB Exporter")]
-[assembly: AssemblyCopyright("Copyright © 2022-2025 Dale Ghent")]
+[assembly: AssemblyProduct("InfluxDBv3 Exporter")]
+[assembly: AssemblyCopyright("Copyright © 2022-2026 Dale Ghent")]
 
 // The minimum Version of N.I.N.A. that this plugin is compatible with
 [assembly: AssemblyMetadata("MinimumApplicationVersion", "3.2.0.1000")]
@@ -38,10 +38,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("Homepage", "https://daleghent.com/influxdb-exporter")]
 
 //[Optional] Common tags that quickly describe your plugin
-[assembly: AssemblyMetadata("Tags", "influx, influxdb")]
+[assembly: AssemblyMetadata("Tags", "influxV3, influxdb V3")]
 
 //[Optional] A link that will show a log of all changes in between your plugin's versions
-[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/daleghent/nina-influxdb-exporter/blob/main/CHANGELOG.md")]
+[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/grbsystems/nina-influxdb-exporter/blob/main/CHANGELOG.md")]
 
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
 [assembly: AssemblyMetadata("FeaturedImageURL", "https://daleghent.github.io/nina-plugins/assets/images/influxdb-logo.png")]
@@ -51,6 +51,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("AltScreenshotURL", "")]
 //[Optional] An in-depth description of your plugin
 [assembly: AssemblyMetadata("LongDescription", @"
+This plugin is derived from the InfluxDB plugin by Dale Ghent and graciously made available under the Mozilla license.  Some modifications were made to better support 
+SQL queries against image events on an Influx V3 data source. Use the original plugin unless you really need to use Influx3
+
 InfluxDB Exporter is a NINA plugin that transmits periodic hardware, guiding, and image metrics to an InfluxDB time-series database. From there, the metrics may be graphed using tools such as Grafana or InfluxDB’s own built-in graphing features.
 
 # Examples #
