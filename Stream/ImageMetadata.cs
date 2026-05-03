@@ -163,6 +163,8 @@ namespace DaleGhent.NINA.InfluxDbExporter.Stream {
                     .Field("title", "Image taken");
 
                 var text = $"Image; Type: {args.MetaData.Image.ImageType}";
+                pointData = pointData.Field("image_type", args.MetaData.Image.ImageType);
+
                 if (!string.IsNullOrEmpty(args.MetaData.Target.Name)) {
                     text += $", Target: {args.MetaData.Target.Name}";
                 }

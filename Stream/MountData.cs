@@ -60,6 +60,11 @@ namespace DaleGhent.NINA.InfluxDbExporter.Stream {
                 .Field("value", valueDouble)
                 .Timestamp(timeStamp, WritePrecision.Ns));
 
+            var mode = TelescopeInfo.TrackingRate.TrackingMode.ToString();
+            points.Add(PointData.Measurement("mount_tracking")
+                .Field("value", mode)
+                .Timestamp(timeStamp, WritePrecision.Ns));
+
             // Send the points
             var fullOptions = new InfluxDBClientOptions(options.InfluxDbUrl) {
                 Token = options.InfluxDbToken,
