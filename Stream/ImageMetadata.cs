@@ -20,6 +20,7 @@ using NINA.Image.Interfaces;
 using NINA.WPF.Base.Interfaces.Mediator;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace DaleGhent.NINA.InfluxDbExporter.Stream {
@@ -160,25 +161,25 @@ namespace DaleGhent.NINA.InfluxDbExporter.Stream {
                 var pointData = PointData
                     .Measurement(options.MeasurementName)
                     .Tag("name", "image")
-                    .Field("title", "Image taken");
+                    .Tag("title", "Image taken");
 
                 var text = $"Image; Type: {args.MetaData.Image.ImageType}";
-                pointData = pointData.Field("image_type", args.MetaData.Image.ImageType);
+                pointData = pointData.Tag("image_type", args.MetaData.Image.ImageType);
 
                 if (!string.IsNullOrEmpty(args.MetaData.Target.Name)) {
                     text += $", Target: {args.MetaData.Target.Name}";
                 }
                 if (!string.IsNullOrEmpty(args.Filter)) {
                     text += $", Filter: {args.Filter}";
-                    pointData = pointData.Field("filter", args.Filter);
+                    pointData = pointData.Tag("filter", args.Filter);
                 }
 
                 text += $", Exp: {args.MetaData.Image.ExposureTime:F2}s";
-                pointData = pointData.Field("exposure", args.MetaData.Image.ExposureTime);
+                pointData = pointData.Tag("exposure", args.MetaData.Image.ExposureTime.ToString(CultureInfo.InvariantCulture));
 
                 if (args.Statistics != null) {
                     text += $", Mean: {args.Statistics.Mean:F2}";
-                    pointData = pointData.Field("mean", args.Statistics.Mean);
+                    pointData = pointData.Tag("mean", args.Statistics.Mean.ToString(CultureInfo.InvariantCulture));
                 }
 
                 pointData = pointData.Field("text", text);
